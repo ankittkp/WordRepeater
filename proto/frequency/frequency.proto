@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package word_frequency;
-option go_package = "proto/frequency";
+option go_package = "github.com/jinxankit/WordRepeater/tree/main/proto/frequency";
 
 message inputRequest {
   string text = 1;
