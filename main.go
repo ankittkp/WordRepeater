@@ -7,10 +7,30 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"sort"
 	"strings"
 )
 type server struct{
 	pb.UnimplementedWordFrequencyServer
+}
+type newMap struct {
+	Key string
+	Value int64
+}
+func getTopTenElement(m map[string]int64) map[string]int64 {
+	var mapSlice []newMap
+	for k, v := range m {
+		mapSlice = append(mapSlice, newMap{k, v})
+	}
+	sort.Slice(mapSlice, func(i, j int) bool {
+		return mapSlice[i].Value > mapSlice[j].Value
+	})
+	newWordCount := make(map[string]int64)
+	for _, kv := range mapSlice[:10] {
+		newWordCount[kv.Key] = kv.Value
+		fmt.Printf("%s, %d\n", kv.Key, kv.Value)
+	}
+	return newWordCount
 }
 func (s *server) Calculate(_ context.Context, req *pb.InputRequest) (*pb.OutputResponse, error){
 	input := req.Text
@@ -24,6 +44,7 @@ func (s *server) Calculate(_ context.Context, req *pb.InputRequest) (*pb.OutputR
 			wordCount[value] = 1
 		}
 	}
+	wordCount = getTopTenElement(wordCount)
 	for i,j := range wordCount{
 		fmt.Printf("Word is : %v and its count is %v: ", i, j)
 		fmt.Println()
