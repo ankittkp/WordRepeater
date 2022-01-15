@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package word_frequency;
+option go_package = "proto/frequency";
+
+message inputRequest {
+  string text = 1;
+}
+message outputResponse {
+  map<string, int64> result = 1;
+}
+service WordFrequency{
+  rpc Calculate(inputRequest) returns (outputResponse) {
+  };
+}
+
