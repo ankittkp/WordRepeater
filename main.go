@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
+	pb "github.com/jinxankit/WordRepeater/proto/frequency"
 	"google.golang.org/grpc"
 	"log"
 	"net"
 	"strings"
-	pb "github.com/jinxankit/WordRepeater/tree/main/proto/frequency"
 )
 type server struct{
 	pb.UnimplementedWordFrequencyServer

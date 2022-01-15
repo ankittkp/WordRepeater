@@ -1,4 +1,4 @@
-module WordRepeater
+module github.com/jinxankit/WordRepeater
 
 go 1.17
 
